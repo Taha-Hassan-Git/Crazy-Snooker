@@ -3,34 +3,60 @@ const ctx = canvas.getContext('2d');
 canvas.height = 650;
 canvas.width = 350;
 
-
-
-size = 30;
-speedX = 5;
-speedY = 10;
+var size = 30;
+var speedX = 1;
+var speedY = 1;
 let x = 0;
 let y = 0;
-r = 200;
-g = 100;
-b = 0;
+var r = 255;
+var g = 50;
+var b = 200;
 
-speedR = 1;
-speedG = 1;
-speedB = 1;
+var speedR = 1;
+var speedG = 1;
+var speedB = 1;
 
-const id = setInterval(() => {
+/* class Heroes {
+    constructor(x, y, size){
+        this.x = x;
+        this.y = y;
+        this.size = size;
+    }
+    drawHero(){
+        ctx.arc(this.x + size , this.y + size, size, 0, 2 * Math.PI);
+        ctx.fillStyle = "rgb(" + r + ", "+ g +", " + b + ")";
+        return ctx.fill();
+    }
+}
+
+var newHero = new Heroes(0, 0, 30) */
+function grabInputs(speedX, speedY){
+    
+}
+
+function drawHero(){
     ctx.beginPath();
-    ctx.arc(x + (size/2) , y + (size/2), size, 0, 2 * Math.PI);
+    ctx.arc(x + size , y + size, size, 0, 2 * Math.PI);
     ctx.fillStyle = "rgb(" + r + ", "+ g +", " + b + ")";
     ctx.fill();
+}
+drawHero()
+
+function startAnimation(){
+    var sliderX = document.getElementById("sliderX");
+    var sliderY = document.getElementById("sliderY");
+    var speedX = parseInt(sliderX.value);
+    var speedY = parseInt(sliderY.value);
+
+    const id = setInterval(() => {
+    
     
     changeColour();
     colourBounce();
     move();
-    checkBounce();
-    
-    
-    }, 20);
+    moveBounce();
+    drawHero();
+    }, 10);
 
 function colourBounce(){
     if (r >= 255 || r <= 0)
@@ -50,10 +76,11 @@ function move(){
     x += speedX;
     y += speedY;
 }
-function checkBounce(){
-    if (x > (canvas.width - size) || x < 0){
+function moveBounce(){
+    if (x > (canvas.width - (size*2)) || x < 0){
     speedX *= -1;
-} if (y > (canvas.height - size) || y < 0){
+} if (y > (canvas.height - (size*2)) || y < 0){
     speedY *= -1;
 } 
+}
 }

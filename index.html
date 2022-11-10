@@ -17,6 +17,11 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <container class="container">
+            <button type="start" onclick="startAnimation()">Start</button>
+            <input type="range" min="0" max="10" value="1" class="slider" id="sliderX">
+            <input type="range" min="0" max="10" value="1" class="slider" id="sliderY">
+        </container>
+        <container class="container">
             <canvas class="canvas" id="canvas"></canvas>
         </container>
         
