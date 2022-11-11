@@ -52,18 +52,28 @@ class Heroes {
 
 let heroArray = [];
 function makeHeroes(){
-    console.log("makeheroes");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    heroArray = [];
     const numberSlider = document.getElementById("makeheroes");
+    const speedSlider = document.getElementById("speed");
     const heroNumber = numberSlider.value;
+    const totalSpeed = speedSlider.value;
     for (let i = 0; i < heroNumber; i++){
-        const size = 30
-        const x = Math.floor(Math.random() * (canvas.width - size));
-        const y = Math.floor(Math.random() * (canvas.height - size));
+        const size = 10;
+        let location = assignLocation(size);
+        const x = location[0];
+        const y = location[1];
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
-        const speedX = Math.floor(Math.random() * 10 +1);
-        const speedY = Math.floor(Math.random() * 10 + 1);
+        let speedX = Math.floor(Math.random() * totalSpeed + 1);
+        let speedY = Math.floor(Math.random() * (totalSpeed - speedX) + 1);
+        if ((Math.floor(Math.random() * 2)) === 1){
+            speedX *= -1
+        }
+        if ((Math.floor(Math.random() * 2)) === 1){
+            speedY *= -1
+        } 
         const hero = new Heroes(x, y, size, r, g, b, speedX, speedY);
         heroArray.push(hero);
     }
@@ -71,11 +81,23 @@ function makeHeroes(){
     heroArray[h].drawHero()
     }
 }
-
-//makeHeroes();
-
+function assignLocation(size){
+    let gridSize = size * 2;
+    let widthBoxes = Math.floor((canvas.width / gridSize));
+    let heightBoxes = Math.floor((canvas.height / gridSize));
+    let randIntX = getRandomIntInclusive(1, widthBoxes);
+    let randIntY = getRandomIntInclusive(1, heightBoxes);
+    let randX = (randIntX * gridSize) - size;
+    let randY = (randIntY * gridSize) - size;
+    return [randX, randY];
+}
 let started = false;
 
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 function startAnimation(){
     if (started === false){
