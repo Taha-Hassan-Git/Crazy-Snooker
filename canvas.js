@@ -2,7 +2,8 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.height = 650;
 canvas.width = 350;
-
+let sliderX = document.getElementById("sliderX");
+let sliderY = document.getElementById("sliderY");
 let speedR = 1;
 let speedG = 1;
 let speedB = 1;
@@ -49,22 +50,38 @@ class Heroes {
 
 } 
 
-const hero = new Heroes(50, 50, 30, 120, 250, 5, 2, 2);
+let heroArray = [];
+for (let i = 0; i < 6; i++){
+    const size = 30
+    const x = Math.floor(Math.random() * (canvas.width - size));
+    const y = Math.floor(Math.random() * (canvas.height - size));
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    const speedX = Math.floor(Math.random() * 10 +1);
+    const speedY = Math.floor(Math.random() * 10 + 1);
+    const hero = new Heroes(x, y, size, r, g, b, speedX, speedY);
+    heroArray.push(hero);
+}
+console.log(heroArray);
 
-hero.drawHero()
+for (h in heroArray){
+    heroArray[h].drawHero()
+}
+
 
 function startAnimation(){
-    let sliderX = document.getElementById("sliderX");
-    let sliderY = document.getElementById("sliderY");
-    //let hero.speedX = parseInt(sliderX.value);
-    //let hero.speedY = parseInt(sliderY.value);
+    
     const id = setInterval(() => {
-    
-    
-    hero.changeColour()
-    hero.colourBounce()
-    hero.move()
-    hero.moveBounce()
-    hero.drawHero()
+    for (h in heroArray){
+        //heroArray[h].speed.speedX = parseInt(sliderX.value);
+        //heroArray[h].speed.speedY = parseInt(sliderY.value);
+        heroArray[h].changeColour()
+        heroArray[h].colourBounce()
+        heroArray[h].move()
+        heroArray[h].moveBounce()
+        heroArray[h].drawHero()
+    }
+        
     }, 10);
 }
