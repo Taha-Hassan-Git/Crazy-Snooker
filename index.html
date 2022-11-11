@@ -18,8 +18,10 @@
         <![endif]-->
         <container class="container">
             <button type="start" onclick="startAnimation()">Start</button>
-            <input type="range" min="0" max="10" value="1" class="slider" id="sliderX">
-            <input type="range" min="0" max="10" value="1" class="slider" id="sliderY">
+            <label for="speed">Speed</label>
+            <input type="range" min="2" max="20" value="1" class="slider" id="speed">
+            <label for="makeheroes">Number of Circles</label>
+            <input type="range" min="1" max="20" value="1" class="slider" id="makeheroes" onchange="makeHeroes()">
         </container>
         <container class="container">
             <canvas class="canvas" id="canvas"></canvas>

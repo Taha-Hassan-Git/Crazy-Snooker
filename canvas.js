@@ -51,37 +51,45 @@ class Heroes {
 } 
 
 let heroArray = [];
-for (let i = 0; i < 6; i++){
-    const size = 30
-    const x = Math.floor(Math.random() * (canvas.width - size));
-    const y = Math.floor(Math.random() * (canvas.height - size));
-    const r = Math.floor(Math.random() * 255);
-    const g = Math.floor(Math.random() * 255);
-    const b = Math.floor(Math.random() * 255);
-    const speedX = Math.floor(Math.random() * 10 +1);
-    const speedY = Math.floor(Math.random() * 10 + 1);
-    const hero = new Heroes(x, y, size, r, g, b, speedX, speedY);
-    heroArray.push(hero);
-}
-console.log(heroArray);
-
-for (h in heroArray){
+function makeHeroes(){
+    console.log("makeheroes");
+    const numberSlider = document.getElementById("makeheroes");
+    const heroNumber = numberSlider.value;
+    for (let i = 0; i < heroNumber; i++){
+        const size = 30
+        const x = Math.floor(Math.random() * (canvas.width - size));
+        const y = Math.floor(Math.random() * (canvas.height - size));
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        const speedX = Math.floor(Math.random() * 10 +1);
+        const speedY = Math.floor(Math.random() * 10 + 1);
+        const hero = new Heroes(x, y, size, r, g, b, speedX, speedY);
+        heroArray.push(hero);
+    }
+    for (h in heroArray){
     heroArray[h].drawHero()
+    }
 }
+
+//makeHeroes();
+
+let started = false;
 
 
 function startAnimation(){
-    
-    const id = setInterval(() => {
-    for (h in heroArray){
-        //heroArray[h].speed.speedX = parseInt(sliderX.value);
-        //heroArray[h].speed.speedY = parseInt(sliderY.value);
-        heroArray[h].changeColour()
-        heroArray[h].colourBounce()
-        heroArray[h].move()
-        heroArray[h].moveBounce()
-        heroArray[h].drawHero()
+    if (started === false){
+        const id = setInterval(() => {
+        for (h in heroArray){
+            heroArray[h].changeColour()
+            heroArray[h].colourBounce()
+            heroArray[h].move()
+            heroArray[h].moveBounce()
+            heroArray[h].drawHero()
+        }
+            
+        }, 10);
+    started === true;
     }
-        
-    }, 10);
+    
 }
