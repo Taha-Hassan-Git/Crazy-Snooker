@@ -4,11 +4,11 @@ canvas.height = 650;
 canvas.width = 350;
 let sliderX = document.getElementById("sliderX");
 let sliderY = document.getElementById("sliderY");
-const startbtn = document.getElementById("start");
+const startStop = document.getElementById("startstop");
 let speedR = 1;
 let speedG = 1;
 let speedB = 1;
-var id;
+
 
 class Heroes {
     //add max and min colours to colourbounce
@@ -107,21 +107,40 @@ function getRandomIntInclusive(min, max) {
 
 makeHeroes();
 
-function startAnimation(){
-    startbtn.onclick = null;
-    const id = setInterval(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (h in heroArray){
-        heroArray[h].changeColour()
-        heroArray[h].colourBounce()
-        heroArray[h].move()
-        heroArray[h].moveBounce()
-        heroArray[h].drawHero()
+
+function startStopAnimation(){
+    if (startStop.innerHTML === "Start"){
+        startStop.innerHTML = "Stop"
+        const id = setInterval(() => {
+            if (startStop.innerHTML === "Stop"){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (h in heroArray){
+                    heroArray[h].changeColour()
+                    heroArray[h].colourBounce()
+                    heroArray[h].move()
+                    heroArray[h].moveBounce()
+                    heroArray[h].drawHero()
+                    /* for (h2 in heroArray){
+                        let slice = heroArray.slice(h);
+                        let hX = slice[h].location.x;
+                        let hY = slice[h].location.y;
+                        let h2X = slice[h2].location.x;
+                        let h2Y = slice[h2].location.y;
+                        let distance = Math.hypot((hX - h2X), (hY - h2Y));
+                        if (distance < slice[h].size){
+                            console.log("collision");
+                        }
+                    } */
+            }
+            } else {
+        clearInterval(id);
+            }
+        }, 10);
     }
-        
-    }, 10);
-}
+    else startStop.innerHTML = "Start";
+    }
+
 function stopAnimation(){
-    clearInterval(id);
+    
 }
 
