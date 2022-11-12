@@ -4,11 +4,14 @@ canvas.height = 650;
 canvas.width = 350;
 let sliderX = document.getElementById("sliderX");
 let sliderY = document.getElementById("sliderY");
+const startbtn = document.getElementById("start");
 let speedR = 1;
 let speedG = 1;
 let speedB = 1;
+var id;
 
 class Heroes {
+    //add max and min colours to colourbounce
     constructor(x, y, size, r, g, b, speedX, speedY) {
         this.location = {x: x, y: y};
         this.size = size;
@@ -52,6 +55,8 @@ class Heroes {
 
 let heroArray = [];
 function makeHeroes(){
+    
+    //must be assigned max, min and starting colours by user
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     heroArray = [];
     const numberSlider = document.getElementById("makeheroes");
@@ -68,8 +73,8 @@ function makeHeroes(){
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
-        let speedX = Math.floor(Math.random() * totalSpeed + 1);
-        let speedY = Math.floor(Math.random() * (totalSpeed - speedX) + 1);
+        let speedX = getRandomIntInclusive(1, totalSpeed);
+        let speedY = totalSpeed - speedX;
         if ((Math.floor(Math.random() * 2)) === 1){
             speedX *= -1
         }
@@ -93,7 +98,6 @@ function assignLocation(size){
     let randY = (randIntY * gridSize) - gridSize;
     return [randX, randY];
 }
-let started = false;
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -101,20 +105,23 @@ function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+makeHeroes();
+
 function startAnimation(){
-    if (started === false){
-        const id = setInterval(() => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (h in heroArray){
-            heroArray[h].changeColour()
-            heroArray[h].colourBounce()
-            heroArray[h].move()
-            heroArray[h].moveBounce()
-            heroArray[h].drawHero()
-        }
-            
-        }, 10);
-    started === true;
+    startbtn.onclick = null;
+    const id = setInterval(() => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (h in heroArray){
+        heroArray[h].changeColour()
+        heroArray[h].colourBounce()
+        heroArray[h].move()
+        heroArray[h].moveBounce()
+        heroArray[h].drawHero()
     }
-    
+        
+    }, 10);
 }
+function stopAnimation(){
+    clearInterval(id);
+}
+

@@ -17,14 +17,21 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <container class="container">
-            <button type="start" onclick="startAnimation()">Start</button>
-            <label for="size">Size</label>
-            <input type="range" min="5" max="60" value="30" class="slider" id="size" onchange="makeHeroes()">
-            <label for="speed">Speed</label>
-            <input type="range" min="2" max="15" value="10" class="slider" id="speed" onchange="makeHeroes()">
-            <label for="makeheroes">Number of Circles</label>
-            <input type="range" min="1" max="35" value="10" class="slider" id="makeheroes" onchange="makeHeroes()">
+            <container class="container">
+                <label for="size">Size</label>
+                <input type="range" min="5" max="60" value="30" class="slider" id="size" onchange="makeHeroes()">
+                <label for="speed">Speed</label>
+                <input type="range" min="2" max="15" value="10" class="slider" id="speed" onchange="makeHeroes()">
+                <label for="makeheroes">Number of Circles</label>
+                <input type="range" min="1" max="35" value="10" class="slider" id="makeheroes" onchange="makeHeroes()">
+            </container>
+            <container>
+                <canvas id="preview"></canvas>
+            </container>
+            <button type="start" onclick="startAnimation()" id="start">Start</button>
+            <button type="stop" onclick="stopAnimation(id)" id="stop">Stop</button>
         </container>
+
         <container class="container">
             <canvas class="canvas" id="canvas"></canvas>
         </container>
