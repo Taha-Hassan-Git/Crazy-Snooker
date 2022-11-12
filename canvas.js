@@ -56,10 +56,12 @@ function makeHeroes(){
     heroArray = [];
     const numberSlider = document.getElementById("makeheroes");
     const speedSlider = document.getElementById("speed");
+    const sizeSlider = document.getElementById("size");
     const heroNumber = numberSlider.value;
     const totalSpeed = speedSlider.value;
+    const sizeInput = parseInt(sizeSlider.value);
     for (let i = 0; i < heroNumber; i++){
-        const size = 10;
+        const size = sizeInput;
         let location = assignLocation(size);
         const x = location[0];
         const y = location[1];
@@ -87,8 +89,8 @@ function assignLocation(size){
     let heightBoxes = Math.floor((canvas.height / gridSize));
     let randIntX = getRandomIntInclusive(1, widthBoxes);
     let randIntY = getRandomIntInclusive(1, heightBoxes);
-    let randX = (randIntX * gridSize) - size;
-    let randY = (randIntY * gridSize) - size;
+    let randX = (randIntX * gridSize) - gridSize;
+    let randY = (randIntY * gridSize) - gridSize;
     return [randX, randY];
 }
 let started = false;
@@ -102,7 +104,8 @@ function getRandomIntInclusive(min, max) {
 function startAnimation(){
     if (started === false){
         const id = setInterval(() => {
-        for (h in heroArray){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (h in heroArray){
             heroArray[h].changeColour()
             heroArray[h].colourBounce()
             heroArray[h].move()
