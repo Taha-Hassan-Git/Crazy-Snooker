@@ -108,15 +108,19 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-function collisionBounce(hero1, hero2){
-    hero1.speed.speedX *= -1;
-    hero1.speed.speedY *= -1;
-    hero2.speed.speedX *= -1;
-    hero2.speed.speedY *= -1;
-    hero1.move();
-    hero2.move();
-    hero1.moveBounce();
-    hero2.moveBounce();
+function collisionBounce(hero1, hero2, distance, xDistance, yDistance){
+    let vCollision = {x: hero2.location.x - hero1.location.x, y: hero2.location.y - hero1.location.y};
+    let vCollisionNorm = {x: vCollision.x / distance, y: vCollision.y / distance};
+    let vRelativeVelocity = {x: hero1.speed.speedX - hero2.speed.speedX, y: hero1.speed.speedY - hero2.speed.speedY};
+    let collisionSpeed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
+    if (collisionSpeed < 0) {
+        return
+    }
+    hero1.speed.speedX -= (collisionSpeed * vCollisionNorm.x);
+    hero1.speed.speedY -= (collisionSpeed * vCollisionNorm.y);
+    hero2.speed.speedX += (collisionSpeed * vCollisionNorm.x);
+    hero2.speed.speedY += (collisionSpeed * vCollisionNorm.y);
+
 }
 
 //This renders default values for heroes when the page loads
@@ -143,13 +147,13 @@ function startStopAnimation(){
                         let hY = heroArray[i].location.y;
                         let h2X = slice[j].location.x;
                         let h2Y = slice[j].location.y;
-                        let xdistance = hX - h2X;
+                        let xDistance = hX - h2X;
                         let yDistance = hY - h2Y;
-                        let distance = Math.hypot(xdistance, yDistance);
+                        let distance = Math.hypot(xDistance, yDistance);
                         
                         if (distance < (heroArray[i].size*2)){
                             //heroArray[j-i] sometimes isn't a hero object
-                            collisionBounce(heroArray[i], heroArray[i+j]);
+                            collisionBounce(heroArray[i], heroArray[i+j], distance, xDistance, yDistance);
                         }
                     } 
                 }
