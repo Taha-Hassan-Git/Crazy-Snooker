@@ -8,9 +8,11 @@ const startStop = document.getElementById("startstop");
 let speedR = 1;
 let speedG = 1;
 let speedB = 1;
+let heroArray = [];
 
 
 class Heroes {
+    //Heroes class that defines properties and methods of our heroes
     //add max and min colours to colourbounce
     constructor(x, y, size, r, g, b, speedX, speedY) {
         this.location = {x: x, y: y};
@@ -53,10 +55,9 @@ class Heroes {
 
 } 
 
-let heroArray = [];
 function makeHeroes(){
-    
-    //must be assigned max, min and starting colours by user
+    //Uses heroes class to make heroes
+    //need to add user-assigned colour values rather than random
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     heroArray = [];
     const numberSlider = document.getElementById("makeheroes");
@@ -73,7 +74,7 @@ function makeHeroes(){
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
-        let speedX = getRandomIntInclusive(1, totalSpeed);
+        let speedX = getRandomIntInclusive(1, totalSpeed - 1);
         let speedY = totalSpeed - speedX;
         if ((Math.floor(Math.random() * 2)) === 1){
             speedX *= -1
@@ -89,6 +90,8 @@ function makeHeroes(){
     }
 }
 function assignLocation(size){
+    //called by makeHeroes, makes a grid and assigns a location based on a random number. 
+    //Can use this to prevent overlapping in future
     let gridSize = size * 2;
     let widthBoxes = Math.floor((canvas.width / gridSize));
     let heightBoxes = Math.floor((canvas.height / gridSize));
@@ -100,38 +103,56 @@ function assignLocation(size){
 }
 
 function getRandomIntInclusive(min, max) {
+    //Generates random Ints, called by various functions
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+function collisionBounce(hero1, hero2){
+    hero1.speed.speedX *= -1;
+    hero1.speed.speedY *= -1;
+    hero2.speed.speedX *= -1;
+    hero2.speed.speedY *= -1;
+    hero1.move();
+    hero2.move();
+    hero1.moveBounce();
+    hero2.moveBounce();
+}
 
+//This renders default values for heroes when the page loads
 makeHeroes();
 
 
 function startStopAnimation(){
     if (startStop.innerHTML === "Start"){
         startStop.innerHTML = "Stop"
+        //console.log(heroArray);
         const id = setInterval(() => {
             if (startStop.innerHTML === "Stop"){
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (h in heroArray){
-                    heroArray[h].changeColour()
-                    heroArray[h].colourBounce()
-                    heroArray[h].move()
-                    heroArray[h].moveBounce()
-                    heroArray[h].drawHero()
-                    /* for (h2 in heroArray){
-                        let slice = heroArray.slice(h);
-                        let hX = slice[h].location.x;
-                        let hY = slice[h].location.y;
-                        let h2X = slice[h2].location.x;
-                        let h2Y = slice[h2].location.y;
-                        let distance = Math.hypot((hX - h2X), (hY - h2Y));
-                        if (distance < slice[h].size){
-                            console.log("collision");
+                for (var i = 0; i < heroArray.length; i++){
+                    heroArray[i].changeColour()
+                    heroArray[i].colourBounce()
+                    heroArray[i].move()
+                    heroArray[i].moveBounce()
+                    heroArray[i].drawHero()
+                    let slice = heroArray.slice(i);
+                    for (var j = 1; j < slice.length; j++){
+                        //this doesn't accurately detect collision
+                        let hX = heroArray[i].location.x;
+                        let hY = heroArray[i].location.y;
+                        let h2X = slice[j].location.x;
+                        let h2Y = slice[j].location.y;
+                        let xdistance = hX - h2X;
+                        let yDistance = hY - h2Y;
+                        let distance = Math.hypot(xdistance, yDistance);
+                        
+                        if (distance < (heroArray[i].size*2)){
+                            //heroArray[j-i] sometimes isn't a hero object
+                            collisionBounce(heroArray[i], heroArray[i+j]);
                         }
-                    } */
-            }
+                    } 
+                }
             } else {
         clearInterval(id);
             }
@@ -139,8 +160,4 @@ function startStopAnimation(){
     }
     else startStop.innerHTML = "Start";
     }
-
-function stopAnimation(){
-    
-}
 
