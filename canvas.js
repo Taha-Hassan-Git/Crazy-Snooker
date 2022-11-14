@@ -1,6 +1,6 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.height = 500;
+canvas.height = 600;
 canvas.width = 350;
 const startStop = document.getElementById("startstop");
 const numberSlider = document.getElementById("makeheroes");
@@ -42,8 +42,10 @@ class Heroes {
     moveBounce(){
         if (this.location.x > (canvas.width - (this.size*2)) || this.location.x < 0){
         this.speed.speedX *= -1;
+        this.move();
     } if (this.location.y > (canvas.height - (this.size*2)) || this.location.y < 0){
         this.speed.speedY *= -1;
+        this.move();
     } 
     }
     

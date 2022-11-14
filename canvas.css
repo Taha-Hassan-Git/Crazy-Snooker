@@ -1,14 +1,38 @@
 body {
     background-color: gray;
+    font-family: 'Courier New', Courier, monospace;
 }
 .canvas{
     background-color: black;
     border: outset 5px white;
 }
 .container {
-    display: grid;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
     background-color: none;
+}
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.sliders {
+    display: flex;
+    flex-direction: column;
+}
+.colours {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    justify-self: center;
+    align-self: center;
+    height: 2rem;
+    width: 4rem;
+}
+input[type="range"]{
+    width: 5rem;
 }
