@@ -21,10 +21,25 @@
                 <label for="size">Size</label>
                 <input type="range" min="5" max="60" value="30" class="slider" id="size" onchange="makeHeroes()">
                 <label for="speed">Speed</label>
-                <input type="range" min="2" max="8" value="4" class="slider" id="speed" onchange="makeHeroes()">
+                <input type="range" min="2" max="5" value="2" class="slider" id="speed" onchange="makeHeroes()">
                 <label for="makeheroes">Number of Circles</label>
-                <input type="range" min="1" max="35" value="10" class="slider" id="makeheroes" onchange="makeHeroes()">
+                <input type="range" min="1" max="25" value="10" class="slider" id="makeheroes" onchange="makeHeroes()">
             </container>
+            <p>Choose your starting colours:</p>
+                <input type="color" id="col1" name="col1"
+                       value="#e66465" onchange="makeHeroes()">
+                <label for="head">One</label>
+            </div>
+            <div>
+                <input type="color" id="col2" name="col2"
+                        value="#f6b73c" onchange="makeHeroes()">
+                <label for="col2">Two</label>
+            </div>
+            <div>
+                <input type="color" id="col3" name="col3"
+                        value="#3bc8f7" onchange="makeHeroes()">
+                <label for="col3">Three</label>
+            </div>
             <container>
             </container>
             <button type="startstop" onclick="startStopAnimation()" id="startstop">Start</button>

@@ -1,10 +1,14 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.height = 650;
+canvas.height = 500;
 canvas.width = 350;
-let sliderX = document.getElementById("sliderX");
-let sliderY = document.getElementById("sliderY");
 const startStop = document.getElementById("startstop");
+const numberSlider = document.getElementById("makeheroes");
+const speedSlider = document.getElementById("speed");
+const sizeSlider = document.getElementById("size");
+const colSlider1 = document.getElementById("col1");
+const colSlider2 = document.getElementById("col2");
+const colSlider3 = document.getElementById("col3");
 let speedR = 1;
 let speedG = 1;
 let speedB = 1;
@@ -20,6 +24,7 @@ class Heroes {
         this.colour = {r: r, g: g, b: b};
         this.speed = {speedX: speedX, speedY: speedY};
         this.colourspeed = {speedR: speedR, speedG: speedG, speedB: speedB};
+        //this.maxcolour = {maxR: maxR, maxG: maxG, maxB: maxB}
     }
     drawHero(){
         ctx.beginPath();
@@ -60,20 +65,23 @@ function makeHeroes(){
     //need to add user-assigned colour values rather than random
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     heroArray = [];
-    const numberSlider = document.getElementById("makeheroes");
-    const speedSlider = document.getElementById("speed");
-    const sizeSlider = document.getElementById("size");
     const heroNumber = numberSlider.value;
     const totalSpeed = speedSlider.value;
     const sizeInput = parseInt(sizeSlider.value);
+    let colour1 = (hex2rgba(colSlider1.value));
+    let colour2 = (hex2rgba(colSlider2.value));
+    let colour3 = (hex2rgba(colSlider3.value));
+    let colourArray = [colour1, colour2, colour3]
     for (let i = 0; i < heroNumber; i++){
         const size = sizeInput;
         let location = assignLocation(size);
+        let randomColour = Math.floor(Math.random() * 3)
+
         const x = location[0];
         const y = location[1];
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
+        const r = colourArray[randomColour][0];
+        const g = colourArray[randomColour][1];
+        const b = colourArray[randomColour][2];
         let speedX = getRandomIntInclusive(1, totalSpeed - 1);
         let speedY = totalSpeed - speedX;
         if ((Math.floor(Math.random() * 2)) === 1){
@@ -108,6 +116,13 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+function hex2rgba(hexa){
+    var r = parseInt(hexa.slice(1,3), 16);
+        g = parseInt(hexa.slice(3,5), 16);
+        b = parseInt(hexa.slice(5,7), 16);
+    return [r,g,b]
+  }
 function collisionBounce(hero1, hero2, distance, xDistance, yDistance){
     let vCollision = {x: hero2.location.x - hero1.location.x, y: hero2.location.y - hero1.location.y};
     let vCollisionNorm = {x: vCollision.x / distance, y: vCollision.y / distance};
@@ -120,7 +135,13 @@ function collisionBounce(hero1, hero2, distance, xDistance, yDistance){
     hero1.speed.speedY -= (collisionSpeed * vCollisionNorm.y);
     hero2.speed.speedX += (collisionSpeed * vCollisionNorm.x);
     hero2.speed.speedY += (collisionSpeed * vCollisionNorm.y);
+}
 
+function swapColours(hero1, hero2){
+    let hero1colours = hero1.colour;
+    let hero2colours = hero2.colour;
+    hero2.colour = hero1colours;
+    hero1.colour = hero2colours;
 }
 
 //This renders default values for heroes when the page loads
@@ -135,8 +156,8 @@ function startStopAnimation(){
             if (startStop.innerHTML === "Stop"){
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for (var i = 0; i < heroArray.length; i++){
-                    heroArray[i].changeColour()
-                    heroArray[i].colourBounce()
+                    //heroArray[i].changeColour()
+                    //heroArray[i].colourBounce()
                     heroArray[i].move()
                     heroArray[i].moveBounce()
                     heroArray[i].drawHero()
@@ -154,6 +175,7 @@ function startStopAnimation(){
                         if (distance < (heroArray[i].size*2)){
                             //heroArray[j-i] sometimes isn't a hero object
                             collisionBounce(heroArray[i], heroArray[i+j], distance, xDistance, yDistance);
+                            swapColours(heroArray[i], heroArray[i+j]);
                         }
                     } 
                 }
