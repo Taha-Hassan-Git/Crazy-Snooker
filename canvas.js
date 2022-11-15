@@ -55,7 +55,7 @@ class Heroes {
         this.glow += this.glowspeed
     }
     colourBounce(){
-        if (this.glow >= 10 || this.glow <= 0)
+        if (this.glow >= 15 || this.glow <= 0)
         this.glowspeed *= -1;
         /* if (this.colour.g >= this.maxcolour.maxG || this.colour.g <= this.mincolour.minG)
         this.colourspeed.speedG *= -1;
@@ -87,7 +87,7 @@ function makeHeroes(){
         const g = colourArray[randomColour][1];
         const b = colourArray[randomColour][2];
         const glow = 0;
-        const glowspeed = 0.3;
+        const glowspeed = 0.5;
         let speedX = getRandomIntInclusive(1, totalSpeed - 1);
         let speedY = totalSpeed - speedX;
         if ((Math.floor(Math.random() * 2)) === 1){
@@ -129,28 +129,28 @@ function hex2rgba(hexa){
         b = parseInt(hexa.slice(5,7), 16);
     return [r,g,b]
   }
-function collisionBounce(hero1, hero2, distance, xDistance, yDistance){
-    let vCollision = {x: hero2.location.x - hero1.location.x, y: hero2.location.y - hero1.location.y};
-    let vCollisionNorm = {x: vCollision.x / distance, y: vCollision.y / distance};
-    let vRelativeVelocity = {x: hero1.speed.speedX - hero2.speed.speedX, y: hero1.speed.speedY - hero2.speed.speedY};
-    let collisionSpeed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
+function collisionBounce(hero1, hero2, distance){
+    let collisionVector = {x: hero2.location.x - hero1.location.x, y: hero2.location.y - hero1.location.y};
+    let collisionDirection = {x: collisionVector.x / distance, y: collisionVector.y / distance};
+    let velocityDifference = {x: hero1.speed.speedX - hero2.speed.speedX, y: hero1.speed.speedY - hero2.speed.speedY};
+    let collisionSpeed = velocityDifference.x * collisionDirection.x + velocityDifference.y * collisionDirection.y;
     if (collisionSpeed < 0) {
         return
     }
-    hero1.speed.speedX -= (collisionSpeed * vCollisionNorm.x);
-    hero1.speed.speedY -= (collisionSpeed * vCollisionNorm.y);
-    hero2.speed.speedX += (collisionSpeed * vCollisionNorm.x);
-    hero2.speed.speedY += (collisionSpeed * vCollisionNorm.y);
+    hero1.speed.speedX -= (collisionSpeed * collisionDirection.x);
+    hero1.speed.speedY -= (collisionSpeed * collisionDirection.y);
+    hero2.speed.speedX += (collisionSpeed * collisionDirection.x);
+    hero2.speed.speedY += (collisionSpeed * collisionDirection.y);
     hero1.move();
     hero2.move();
     hero1.moveBounce();
     hero2.moveBounce();
 }
 function openNav() {
-    document.getElementById("mySidebar").style.width = "10rem";
+    document.getElementById("sidebar").style.width = "10rem";
   }
 function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("sidebar").style.width = "0";
 }
 //This renders default values for heroes when the page loads
 makeHeroes();
