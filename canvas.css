@@ -1,5 +1,5 @@
 body {
-    background-color: gray;
+    background-color: rgb(21, 21, 21);
     font-family: 'Courier New', Courier, monospace;
 }
 .canvas{
@@ -27,12 +27,60 @@ body {
     flex-direction: column;
 }
 
-button {
-    justify-self: center;
-    align-self: center;
-    height: 2rem;
-    width: 4rem;
+input{
+    width: 60%;
+    margin-bottom: 1rem;
+    margin-left: 1px;
 }
+
 input[type="range"]{
-    width: 5rem;
+    width: 80%;
+    margin-bottom: 1rem;
+}
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed; 
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden;
+    padding-top: 60px; 
+    padding-left: 0px;
+    transition: 0.5s; 
+    color:white;
+    margin-left: 20px;
+  }
+.sidebar .closebtn {
+position: absolute;
+top: 0;
+right: 25px;
+font-size: 36px;
+margin-left: 50px;
+color: white;
+outline: 1px inset white;
+}
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: 1px outset white;
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+.startstop{
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: 1px outset white;
+    height: fit-content;
+    width: fit-content;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 0px gray;
 }

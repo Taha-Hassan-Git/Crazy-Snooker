@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-canvas.height = 600;
-canvas.width = 350;
+canvas.height = window.innerHeight*400/480;
+canvas.width = window.innerWidth*400/480;
 const startStop = document.getElementById("startstop");
 const numberSlider = document.getElementById("makeheroes");
 const speedSlider = document.getElementById("speed");
@@ -9,21 +9,20 @@ const sizeSlider = document.getElementById("size");
 const colSlider1 = document.getElementById("col1");
 const colSlider2 = document.getElementById("col2");
 const colSlider3 = document.getElementById("col3");
-let speedR = 1;
-let speedG = 1;
-let speedB = 1;
+//let speedR = 1;
+//let speedG = 1;
+//let speedB = 1;
 let heroArray = [];
 
 
 class Heroes {
     //Heroes class that defines properties and methods of our heroes
-    //add max and min colours to colourbounce
     constructor(x, y, size, r, g, b, speedX, speedY, glow, glowspeed) {
         this.location = {x: x, y: y};
         this.size = size;
         this.colour = {r: r, g: g, b: b};
         this.speed = {speedX: speedX, speedY: speedY};
-        this.colourspeed = {speedR: speedR, speedG: speedG, speedB: speedB};
+        //this.colourspeed = {speedR: speedR, speedG: speedG, speedB: speedB};
         this.glow = glow;
         this.glowspeed = glowspeed;
     }
@@ -147,7 +146,12 @@ function collisionBounce(hero1, hero2, distance, xDistance, yDistance){
     hero1.moveBounce();
     hero2.moveBounce();
 }
-
+function openNav() {
+    document.getElementById("mySidebar").style.width = "10rem";
+  }
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+}
 //This renders default values for heroes when the page loads
 makeHeroes();
 

@@ -16,31 +16,32 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <sidebar id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <container class="sliders">
+            <label for="size">Size</label>
+            <input type="range" min="5" max="40" value="23" class="slider" id="size" onchange="makeHeroes()">
+            <label for="speed">Speed</label>
+            <input type="range" min="20" max="50" value="35" class="slider" id="speed" onchange="makeHeroes()">
+            <label for="makeheroes">No. of<br> Circles</label>
+            <input type="range" min="1" max="25" value="12" class="slider" id="makeheroes" onchange="makeHeroes()">
+        </container>
+        <container class="colours">
+            <p>Colours:</p>
+            <input type="color" id="col1" name="col1"
+                value="#e66465" onchange="makeHeroes()">
+            <input type="color" id="col2" name="col2"
+                value="#f6b73c" onchange="makeHeroes()">
+            <input type="color" id="col3" name="col3"
+                value="#3bc8f7" onchange="makeHeroes()">
+        </container>
+        </sidebar>
         <container class="button">
-            <button type="startstop" onclick="startStopAnimation()" id="startstop">Start</button>
+            <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+            <button type="startstop" onclick="startStopAnimation()" class ="startstop" id="startstop">Start</button>
         </container>
         <container class="container">
-            <container class="sliders">
-                <label for="size">Size</label>
-                <input type="range" min="5" max="40" value="23" class="slider" id="size" onchange="makeHeroes()">
-                <label for="speed">Speed</label>
-                <input type="range" min="20" max="50" value="35" class="slider" id="speed" onchange="makeHeroes()">
-                <label for="makeheroes">No. of<br> Circles</label>
-                <input type="range" min="1" max="25" value="12" class="slider" id="makeheroes" onchange="makeHeroes()">
-            </container>
             <canvas class="canvas" id="canvas"></canvas>
-            <container class="colours">
-                <p>Colours:</p>
-                     <label for="head">One</label>
-                <input type="color" id="col1" name="col1"
-                           value="#e66465" onchange="makeHeroes()">
-                    <label for="col2">Two</label>
-                    <input type="color" id="col2" name="col2"
-                            value="#f6b73c" onchange="makeHeroes()">
-                    <label for="col3">Three</label>
-                    <input type="color" id="col3" name="col3"
-                            value="#3bc8f7" onchange="makeHeroes()">
-            </container>
         </container>
 
        
