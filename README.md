@@ -1,7 +1,7 @@
 
 # CanvasAnimation
 
-An exploration of 2D particle simulation using the HTML canvas element and vanilla Javascript. <br>[Deployed here](https://taha-hassan-git.github.io/CanvasAnimation/)
+An exploration of 2D particle simulation using the HTML canvas element and vanilla Javascript. <br>[Deployed here](https://taha-hassan-git.github.io/2D-Particle-Collision-Simulator/)
 
 ## Overview
 
