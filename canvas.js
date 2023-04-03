@@ -12,7 +12,12 @@ function init(){
     canvas.width = window.innerWidth*400/480;
     ctx = canvas.getContext('2d');
 
+    //canvas.addEventListener('mousedown', )
+
         draw();
+        drawLine([50, 50], [100,100])
+
+    
 }
 
 function draw(){
@@ -29,8 +34,10 @@ function drawLine(locationA, locationB){
     const [xA, yA] = locationA;
     const [xB, yB] = locationB;
     
-    context.beginPath();
-    context.moveTo(xA, yA);
-    context.lineTo(xB, yB);
-    context.stroke();
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "#0bab02";
+    ctx.beginPath();
+    ctx.moveTo(xA, yA);
+    ctx.lineTo(xB, yB);
+    ctx.stroke();
 }
