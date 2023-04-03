@@ -12,12 +12,33 @@ function init(){
     canvas.width = window.innerWidth*400/480;
     ctx = canvas.getContext('2d');
 
-    //canvas.addEventListener('mousedown', )
-        //makeBalls();
-        drawLine([50, 50], [100,100])
+    let drawing = false;
+    let newLine = {start: [0,0], end: [0,0]};
+    const lineWidth = 10;
+    let bounding = canvas.getBoundingClientRect();
+
+    function startPosition(e){
+
+        drawing = true;
+        const {clientX, clientY} = e;
+        newLine.start = [((clientX - bounding.left)- lineWidth) , ((clientY - bounding.top)-lineWidth)];
+    }
+
+    function finishPosition(e){
+        drawing = false;
+        const {clientX, clientY} = e;
+        newLine.end = [((clientX - bounding.left) - lineWidth), ((clientY - bounding.top)- lineWidth)];
+        drawLine(newLine.start, newLine.end, lineWidth);
+        
+    }
+
+    canvas.addEventListener('mousedown', startPosition);
+    canvas.addEventListener('mouseup', finishPosition);
 
     
 }
+
+
 
 function makeBalls(){
     const redArray = []
@@ -32,12 +53,13 @@ function makeBalls(){
 
 }
 
-function drawLine(locationA, locationB){
+function drawLine(locationA, locationB, lineWidth){
     const [xA, yA] = locationA;
     const [xB, yB] = locationB;
     
-    ctx.lineWidth = 10;
-    ctx.strokeStyle = "#0bab02";
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = "#6f594e";
+    ctx.lineCap = "round";
     ctx.beginPath();
     ctx.moveTo(xA, yA);
     ctx.lineTo(xB, yB);
