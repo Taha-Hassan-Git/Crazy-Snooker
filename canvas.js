@@ -13,21 +13,23 @@ function init(){
     ctx = canvas.getContext('2d');
 
     //canvas.addEventListener('mousedown', )
-
-        draw();
+        //makeBalls();
         drawLine([50, 50], [100,100])
 
     
 }
 
-function draw(){
+function makeBalls(){
+    const redArray = []
+    const cue = new Balls({x:50, y:50}, 50, {r: 255, g: 255, b: 255}, {speecX: 1, speedY: 2}, ctx);
+    cue.drawBall()
+    for(let i = 0; i < 5; i++){
+        console.log('red');
+        const red = new Balls({x: (i+1)*100, y:(i+1)*100}, 50, {r: 255, g: 100, b: 100}, {speecX: 1, speedY: 2}, ctx);
+        redArray.push(red);
+        red.drawBall();
+    }
 
-    // Get a random color, red or blue
-    let randomColor = Math.random() > 0.5? '#ff8080' : '#0099b0';
-
-    // Draw a rectangle
-    ctx.fillStyle = randomColor;
-    ctx.fillRect(100, 50, 200, 175);
 }
 
 function drawLine(locationA, locationB){

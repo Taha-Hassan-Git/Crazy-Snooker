@@ -3,7 +3,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 .canvas{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(14, 90, 0);
     border: outset 5px white;
 }
 .container {
